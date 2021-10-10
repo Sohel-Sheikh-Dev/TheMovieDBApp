@@ -94,7 +94,7 @@
         <EditText
             android:id="@+id/search"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="46dp"
             android:layout_below="@id/WelcomeText"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
@@ -102,24 +102,26 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/search_box"
             android:elevation="1dp"
+            android:fontFamily="sans-serif"
             android:hint="Search...."
-            android:paddingStart="15sp"
+            android:paddingStart="19dp"
             android:textColorHint="#757575"
-            android:textSize="13sp" />
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/searchButtonMain"
             android:layout_width="95dp"
-            android:layout_height="40dp"
+            android:layout_height="46dp"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="20dp"
             android:layout_marginTop="20dp"
             android:layout_below="@id/WelcomeText"
             android:background="@drawable/bgposter"
+            android:fontFamily="sans-serif-medium"
             android:text="Search"
+            android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="10sp"
-            android:textStyle="bold">
+            android:textSize="16sp">
 
         </Button>
 
@@ -147,7 +149,6 @@
 
 
     </RelativeLayout>
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

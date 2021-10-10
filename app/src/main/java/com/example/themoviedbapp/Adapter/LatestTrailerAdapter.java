@@ -22,7 +22,6 @@ public class LatestTrailerAdapter extends RecyclerView.Adapter<LatestTrailerAdap
 
     Context context;
     List<MoviesModel> moviesModelList;
-    private ParentItemMediaAdapter mediaAdapter;
 
     public LatestTrailerAdapter(Context context, List<MoviesModel> moviesModelList) {
         this.context = context;
@@ -38,30 +37,17 @@ public class LatestTrailerAdapter extends RecyclerView.Adapter<LatestTrailerAdap
 
     @Override
     public void onBindViewHolder(@NonNull LatestTrailerAdapter.ViewHolder holder, int position) {
-//        Glide.with(context).load(moviesModelList.get(position).getBackdrop_path()).into(holder.cardTrailerImage);
 
-        holder.cardTrailerImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                holder.cardTrailerImage.setVisibility(View.GONE);
-                holder.youTubeTrailerPlayer.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
-                    @Override
-                    public void onReady(YouTubePlayer youTubePlayer) {
-                        String videoId = "sfM7_JLk-84";
-                        youTubePlayer.loadVideo(videoId, 0);
-                    }
-                });
-            }
+        holder.cardTrailerImage.setOnClickListener(v -> {
+            holder.cardTrailerImage.setVisibility(View.GONE);
+            holder.youTubeTrailerPlayer.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+                @Override
+                public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+                    String videoId = "sfM7_JLk-84";
+                    youTubePlayer.loadVideo(videoId, 0);
+                }
+            });
         });
-
-//        holder.youTubeTrailerPlayer.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
-//            @Override
-//            public void onReady(YouTubePlayer youTubePlayer) {
-//                String videoId = "UprcpdwuwCg";
-//                youTubePlayer.loadVideo(videoId, 0);
-//            }
-//        });
-
 
     }
 
@@ -70,7 +56,7 @@ public class LatestTrailerAdapter extends RecyclerView.Adapter<LatestTrailerAdap
         return moviesModelList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView cardTrailerImage;
         CardView trailerCardView;
@@ -84,4 +70,5 @@ public class LatestTrailerAdapter extends RecyclerView.Adapter<LatestTrailerAdap
             youTubeTrailerPlayer = itemView.findViewById(R.id.youtube_trailer_player_view);
         }
     }
+
 }

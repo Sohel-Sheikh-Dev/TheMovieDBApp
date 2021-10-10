@@ -29,20 +29,18 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.ViewHolder> 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.media_items,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.media_items, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        String keyk = movieTVTrailerModelList.get(position).getKey();
-//        holder.name.setText(keyk.toString());
-//        Log.d("TAG", "onBindViewHolder: "+keyk);
+        String videoKey = movieTVTrailerModelList.get(position).getKey();
+
         holder.youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
             @Override
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {
-//                                String videoId = "VSB4wGIdDwo";
-                youTubePlayer.loadVideo(keyk, 0);
+                youTubePlayer.loadVideo(videoKey, 0);
             }
         });
     }
@@ -52,15 +50,13 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.ViewHolder> 
         return movieTVTrailerModelList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
-//        TextView name;
         YouTubePlayerView youTubePlayerView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             youTubePlayerView = itemView.findViewById(R.id.youtube_player_view);
-//            name = itemView.findViewById(R.id.name);
 
         }
     }

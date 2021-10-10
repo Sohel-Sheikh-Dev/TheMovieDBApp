@@ -26,16 +26,19 @@ public class TVDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
 
-
-        textviewReleaseDate = findViewById(R.id.textViewReleaseDate);
-        textviewTVReleaseDate = findViewById(R.id.textViewTVReleaseDate);
-        tvReleaseRuntime = findViewById(R.id.textViewRuntime);
-        tvReleaseVoteAverage = findViewById(R.id.textViewVoteAverage);
+        init();
 
         int i = ChildItemAdapter.mid;
         Toast.makeText(getApplicationContext(), "" + i, Toast.LENGTH_SHORT).show();
         getTVDetails(i);
 
+    }
+
+    public void init(){
+        textviewReleaseDate = findViewById(R.id.textViewReleaseDate);
+        textviewTVReleaseDate = findViewById(R.id.textViewTVReleaseDate);
+        tvReleaseRuntime = findViewById(R.id.textViewRuntime);
+        tvReleaseVoteAverage = findViewById(R.id.textViewVoteAverage);
     }
 
     public void getTVDetails(int id) {
@@ -49,9 +52,6 @@ public class TVDetails extends AppCompatActivity {
                     String a = response.body().getAir_date();
                     int b = response.body().getEpisode_run_time();
                     float c = response.body().getVote_average();
-
-//                    int m = b % 60;
-
                     /*
                     To get only Year like 2021,2021
                     a = a.substring(0, 4);

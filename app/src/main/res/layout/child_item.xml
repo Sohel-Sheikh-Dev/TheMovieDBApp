@@ -8,7 +8,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/movieOrTvCardView"
         android:layout_width="match_parent"
-        android:layout_height="230dp"
+        android:layout_height="250dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         app:cardCornerRadius="8dp">
@@ -22,48 +22,50 @@
     </androidx.cardview.widget.CardView>
 
 
-    <ProgressBar
-        android:id="@+id/ratingProgress"
-        style="@style/CircularDeterminateProgressBar"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="100dp"
-        android:background="@drawable/bg_rating"
-        android:elevation="2dp"
-        android:indeterminateOnly="false"
-        android:progressDrawable="@drawable/circle"
-        tools:progress="60" />
+        <ProgressBar
+            android:id="@+id/ratingProgress"
+            style="@style/CircularDeterminateProgressBar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="80dp"
+            android:background="@drawable/bg_rating"
+            android:elevation="2dp"
+            android:indeterminateOnly="false"
+            tools:progress="60" />
 
     <TextView
+        android:id="@id/ratingPercentage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@id/ratingProgress"
         android:layout_alignTop="@id/ratingProgress"
         android:layout_alignEnd="@id/ratingProgress"
         android:layout_alignBottom="@id/ratingProgress"
+        android:layout_marginEnd="1dp"
         android:background="#00000000"
         android:elevation="2dp"
         android:gravity="center"
+        android:paddingEnd="2dp"
         android:text="80"
-        android:layout_marginEnd="2dp"
         android:textColor="@color/white"
-        android:textSize="13sp" />
+        android:textSize="12sp" />
 
     <TextView
+        android:id="@+id/percentSign"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@id/ratingProgress"
         android:layout_alignTop="@id/ratingProgress"
         android:layout_alignEnd="@id/ratingProgress"
         android:layout_alignBottom="@id/ratingProgress"
+        android:layout_marginStart="23dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="5dp"
         android:background="#00000000"
         android:elevation="2dp"
         android:gravity="center"
-        android:layout_marginStart="23dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginEnd="5dp"
         android:text="%"
         android:textColor="@color/white"
         android:textSize="5sp" />
@@ -71,16 +73,17 @@
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/movieOrTvCardView"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="25dp"
-        android:fontFamily="sans-serif-black"
-        android:maxLines="1"
-        android:text="kasdl"
-        android:textSize="15sp" />
+        android:fontFamily="sans-serif-medium"
+        android:maxLines="2"
+        android:text="kasdl dl;sjkljkhffljdslkjfhslkjdhlfkjshlkjhfasdlkjh"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/date"

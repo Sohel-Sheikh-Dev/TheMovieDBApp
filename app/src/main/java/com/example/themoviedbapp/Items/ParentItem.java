@@ -1,15 +1,14 @@
-package com.example.themoviedbapp.Adapter;
+package com.example.themoviedbapp.Items;
 
 import com.example.themoviedbapp.Model.MoviesModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ParentItem {
 
     public String ParentItemTextView;
 
-    public List<MoviesModel> moviesModelArrayList = new ArrayList<>();
+    public List<MoviesModel> moviesModelArrayList;
 
     public ParentItem(String parentItemTextView, List<MoviesModel> moviesModelArrayList) {
         ParentItemTextView = parentItemTextView;
@@ -20,16 +19,8 @@ public class ParentItem {
         return ParentItemTextView;
     }
 
-    public void setParentItemTextView(String parentItemTextView) {
-        ParentItemTextView = parentItemTextView;
-    }
-
     public List<MoviesModel> getMoviesModelArrayList() {
         return moviesModelArrayList;
-    }
-
-    public void setMoviesModelArrayList(List<MoviesModel> moviesModelArrayList) {
-        this.moviesModelArrayList = moviesModelArrayList;
     }
 
 }

@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.themoviedbapp.Adapter.ChildItemAdapter;
 import com.example.themoviedbapp.Adapter.ParentItemMediaAdapter;
-import com.example.themoviedbapp.Adapter.ParentMediaItem;
+import com.example.themoviedbapp.Items.ParentMediaItem;
 import com.example.themoviedbapp.Model.MovieTVTrailerModel;
 import com.example.themoviedbapp.Model.MoviesModel;
 import com.example.themoviedbapp.R;
@@ -30,35 +30,25 @@ import retrofit2.Response;
 public class MovieDetails extends AppCompatActivity {
 
     TextView textviewReleaseDate, tvReleaseRuntime, tvReleaseVoteAverage;
-    String videoId;
     List<MovieTVTrailerModel> movieTVTrailerModelList;
     RecyclerView mediaRecyclerView;
     LinearLayoutManager linearLayoutManager;
     private ParentItemMediaAdapter mediaAdapter;
     public List<ParentMediaItem> itemList;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
 
+        init();
+        getMovieDetails();
 
-        textviewReleaseDate = findViewById(R.id.textViewReleaseDate);
-        tvReleaseRuntime = findViewById(R.id.textViewRuntime);
-        tvReleaseVoteAverage = findViewById(R.id.textViewVoteAverage);
+    }
 
-        movieTVTrailerModelList = new ArrayList<>();
-
-        mediaRecyclerView = findViewById(R.id.mediaRecyclerView);
-        linearLayoutManager = new LinearLayoutManager(MovieDetails.this);
-        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
-        mediaRecyclerView.setLayoutManager(linearLayoutManager);
-
+    public void getMovieDetails() {
         int i = ChildItemAdapter.mid;
         Toast.makeText(getApplicationContext(), "" + i, Toast.LENGTH_SHORT).show();
-//        getMovieDetails(i);
-
 
 
         itemList = new ArrayList<>();
@@ -73,62 +63,44 @@ public class MovieDetails extends AppCompatActivity {
         itemList.add(itemTop1);
 
 
-        mediaAdapter = new ParentItemMediaAdapter(getApplicationContext(),itemList);
+        mediaAdapter = new ParentItemMediaAdapter(getApplicationContext(), itemList);
         mediaRecyclerView.setAdapter(mediaAdapter);
+    }
 
+    public void init() {
+        textviewReleaseDate = findViewById(R.id.textViewReleaseDate);
+        tvReleaseRuntime = findViewById(R.id.textViewRuntime);
+        tvReleaseVoteAverage = findViewById(R.id.textViewVoteAverage);
 
+        movieTVTrailerModelList = new ArrayList<>();
+
+        mediaRecyclerView = findViewById(R.id.mediaRecyclerView);
+        linearLayoutManager = new LinearLayoutManager(MovieDetails.this);
+        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        mediaRecyclerView.setLayoutManager(linearLayoutManager);
     }
 
     private void getMovieTrailer(int id) {
 
         Call<TrailerResponse> data = RetrofitInstance.getRetrofitInstance().getMoviesTrailer(id);
         data.enqueue(new Callback<TrailerResponse>() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
-            public void onResponse(Call<TrailerResponse> call, Response<TrailerResponse> response) {
+            public void onResponse(@NonNull Call<TrailerResponse> call, @NonNull Response<TrailerResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-
-
                     movieTVTrailerModelList.addAll(response.body().getMovieTVTrailerModelList());
                     mediaAdapter.notifyDataSetChanged();
-
-//                    if (response.body().getMovieTVTrailerModelList().size() != 0) {
-//                        String aa = response.body().getMovieTVTrailerModelList().get(0).getKey();
-//                        textviewReleaseDate.setText(aa);
-
-//                        YouTubePlayerView youTubePlayerView = findViewById(R.id.youtube_player_view);
-//                        getLifecycle().addObserver(youTubePlayerView);
-//
-//                        youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
-//                            @Override
-//                            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
-////                                String videoId = "VSB4wGIdDwo";
-//                                youTubePlayer.loadVideo(MediaAdapter.keyk, 0);
-//                            }
-//                        });
-//                    }
-
-//                    else {
-//                        YouTubePlayerView youTubePlayerView = findViewById(R.id.youtube_player_view);
-//                        youTubePlayerView.setVisibility(View.GONE);
-//                        textviewReleaseDate.setText("aa");
-//                    }
-
-
-
-
-
                 }
 
             }
 
             @Override
-            public void onFailure(Call<TrailerResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call<TrailerResponse> call, @NonNull Throwable t) {
 
             }
         });
 
     }
-
 
     public void getMovieDetails(int id) {
 

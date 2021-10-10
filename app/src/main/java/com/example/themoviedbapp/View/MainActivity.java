@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -18,7 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.themoviedbapp.Adapter.LatestTrailerAdapter;
-import com.example.themoviedbapp.Adapter.ParentItem;
+import com.example.themoviedbapp.Items.ParentItem;
 import com.example.themoviedbapp.Adapter.ParentItemAdapter;
 import com.example.themoviedbapp.Adapter.SliderAdapter;
 import com.example.themoviedbapp.Model.MoviesModel;
@@ -44,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
     ProgressBar progressBar;
     LinearLayoutManager linearLayoutManager;
     public List<ParentItem> itemList;
-    ImageView imageView;
     LatestTrailerAdapter latestTrailerAdapter;
     RecyclerView trailerRecyclerView;
     LinearLayoutManager trailerLinearLayoutManager;
@@ -53,10 +51,10 @@ public class MainActivity extends AppCompatActivity {
     static EditText mainEditText;
     Button searchButton;
 
-    private String a1,a2,a3,a4;
+    private String a1, a2, a3, a4;
 
 
-    private String [] imagesText;
+    private String[] imagesText;
     private SliderAdapter sliderAdapter;
     private SliderView sliderView;
     Toolbar toolbar;
@@ -67,37 +65,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setSupportActionBar(toolbar);
 
-
         init();
         getMoviesAndTVs();
-
-
-
-
-
-
-
-
         getUpcomingMovies();
 
-
-//        imageView.getDrawable().setColorFilter(0xB30000B3, PorterDuff.Mode.DARKEN);
-
-//        Resources res = MainActivity.this.getResources();
-////        final ImageView image = (ImageView) findViewById(R.id.image_view);
-//        int newColor = res.getColor(R.color.new_color);
-//        imageView.setColorFilter(newColor, Mode.SRC_ATOP);
-
-
-        searchButton.setOnClickListener(view -> {
-            Intent intent = new Intent(view.getContext(), SearchActivity.class);
-            intent.putExtra("query", mainEditText.toString());
-            startActivity(intent);
-            Toast.makeText(view.getContext(), "Searching...", Toast.LENGTH_SHORT).show();
-        });
-
     }
-
 
     public static String getMainEditText() {
         return mainEditText.getText().toString();
@@ -108,22 +80,21 @@ public class MainActivity extends AppCompatActivity {
 
         itemList = new ArrayList<>();
 
+        ParentItem itemPop = new ParentItem("What's Popular", moviesModelArrayListPop);
+        getPopMovies();
+        itemList.add(itemPop);
+
         ParentItem itemTop = new ParentItem("Top-Rated Movies", moviesModelArrayListTop);
         getTopRatedMovies();
         itemList.add(itemTop);
 
-//        ParentItem itemPop = new ParentItem("Popular Movies", moviesModelArrayListPop);
-//        getPopMovies();
-//        itemList.add(itemPop);
-//
-//
-//        ParentItem itemTrendM = new ParentItem("Trending Movies", moviesModelArrayListTrendM);
-//        getTrendingMovies();
-//        itemList.add(itemTrendM);
-//
-//        ParentItem itemTrendTV = new ParentItem("Trending TV", moviesModelArrayListTrendTV);
-//        getTrendingTvShows();
-//        itemList.add(itemTrendTV);
+        ParentItem itemTrendM = new ParentItem("Trending Movies", moviesModelArrayListTrendM);
+        getTrendingMovies();
+        itemList.add(itemTrendM);
+
+        ParentItem itemTrendTV = new ParentItem("Trending TV", moviesModelArrayListTrendTV);
+        getTrendingTvShows();
+        itemList.add(itemTrendTV);
 
         adapter = new ParentItemAdapter(getApplicationContext(), itemList);
         recyclerView.setAdapter(adapter);
@@ -140,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
 
         sliderView = findViewById(R.id.slider);
         searchButton = findViewById(R.id.searchButtonMain);
-//        imageView = findViewById(R.id.image_view);
         mainEditText = findViewById(R.id.search);
         progressBar = findViewById(R.id.progressBar);
         toolbar = findViewById(R.id.toolbar);
@@ -150,14 +120,19 @@ public class MainActivity extends AppCompatActivity {
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-
-
         trailerRecyclerView = findViewById(R.id.recyclerView2);
         trailerLinearLayoutManager = new LinearLayoutManager(MainActivity.this);
         trailerLinearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
         trailerRecyclerView.setLayoutManager(trailerLinearLayoutManager);
-        latestTrailerAdapter = new LatestTrailerAdapter(getApplicationContext(),moviesModelArrayListUpcoming);
+        latestTrailerAdapter = new LatestTrailerAdapter(getApplicationContext(), moviesModelArrayListUpcoming);
         trailerRecyclerView.setAdapter(latestTrailerAdapter);
+
+        searchButton.setOnClickListener(view -> {
+            Intent intent = new Intent(view.getContext(), SearchActivity.class);
+            intent.putExtra("query", mainEditText.toString());
+            startActivity(intent);
+            Toast.makeText(view.getContext(), "Searching...", Toast.LENGTH_SHORT).show();
+        });
 
 
     }
@@ -176,9 +151,9 @@ public class MainActivity extends AppCompatActivity {
                     a3 = moviesModelArrayListUpcoming.get(2).getBackdrop_path();
                     a4 = moviesModelArrayListUpcoming.get(3).getBackdrop_path();
 
-                    imagesText = new String[]{a1,a2,a3,a4};
-                    Log.d("TAG", "onCreate: "+a1);
-                    sliderAdapter = new SliderAdapter(MainActivity.this,imagesText);
+                    imagesText = new String[]{a1, a2, a3, a4};
+                    Log.d("TAG", "onCreate: " + a1);
+                    sliderAdapter = new SliderAdapter(MainActivity.this, imagesText);
 
                     sliderView.setSliderAdapter(sliderAdapter);
 
@@ -195,37 +170,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-//    private void getTopRatedPosters() {
-//
-//        Call<MoviesResponse> data = RetrofitInstance.getRetrofitInstance().getTopRatedPosters();
-//        data.enqueue(new Callback<MoviesResponse>() {
-//            @SuppressLint("NotifyDataSetChanged")
-//            @Override
-//            public void onResponse(@NonNull Call<MoviesResponse> call, @NonNull Response<MoviesResponse> response) {
-//                if (response.isSuccessful() && response.body() != null) {
-//
-//
-//
-////                    images = new int[]{moviesModelArrayListUpcoming.get(0).getBackdrop_path()};
-//                    moviesModelArrayListPosters = response.body().getResults();
-//                    sliderAdapter = new SliderAdapter(MainActivity.this,moviesModelArrayListPosters);
-//
-//                    sliderView.setSliderAdapter(sliderAdapter);
-//
-//                    sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
-//                    sliderView.setIndicatorAnimation(IndicatorAnimationType.DROP);
-//                    sliderView.startAutoCycle();
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(@NonNull Call<MoviesResponse> call, @NonNull Throwable t) {
-//
-//            }
-//        });
-//    }
 
     private void getTopRatedMovies() {
 
@@ -247,8 +191,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-
 
     private void getPopMovies() {
 
@@ -292,7 +234,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
     private void getTrendingTvShows() {
 
         Call<MoviesResponse> data = RetrofitInstance.getRetrofitInstance().getTrendingTvShows();
@@ -313,34 +254,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-
-/*
-
-    public void getMovieDetails(int movie_id, String apiKey) {
-
-        Call<MoviesModel> data = RetrofitInstance.getRetrofitInstance().getMovieDetails(movie_id, apiKey);
-        data.enqueue(new Callback<MoviesModel>() {
-            @Override
-            public void onResponse(@NonNull Call<MoviesModel> call, @NonNull Response<MoviesModel> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    listt.setRelease_date(response.body().getRelease_date());
-//                    String a = response.body().getRelease_date();
-//                    tvReleaseDate.setText("HEyyy");
-//                    Toast.makeText(getApplicationContext(),"is Reponding",Toast.LENGTH_SHORT).show();
-                    Log.d("taggy", "onResponse: ");
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<MoviesModel> call, @NonNull Throwable t) {
-
-            }
-        });
-
-    }
- */
-
 
 }
 

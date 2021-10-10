@@ -16,9 +16,6 @@ public class MoviesModel {
 
     public int [] episode_run_time;
 
-    //0
-    //3
-//    public String [][] key;
 
     public float vote_average;
 
@@ -36,14 +33,6 @@ public class MoviesModel {
         this.air_date = air_date;
         this.episode_run_time = episode_run_time;
     }
-//
-//    public String getKey() {
-//        return key[0][0];
-//    }
-//
-//    public void setKey(String[][] key) {
-//        this.key = key;
-//    }
 
     public int getEpisode_run_time() {
         return episode_run_time[0];

@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.themoviedbapp.Items.ParentMediaItem;
 import com.example.themoviedbapp.R;
 
 import java.util.List;
@@ -34,8 +35,6 @@ public class ParentItemMediaAdapter extends RecyclerView.Adapter<ParentItemMedia
 
     @Override
     public void onBindViewHolder(@NonNull ParentViewHolder holder, int position) {
-
-//        ParentItem parentItem = itemList.get(position);
         ParentMediaItem parentItem = parentMediaItem.get(position);
 
         holder.parentTV.setText(parentItem.getParentItemTextView());

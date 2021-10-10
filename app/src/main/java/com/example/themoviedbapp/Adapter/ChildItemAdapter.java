@@ -3,6 +3,7 @@ package com.example.themoviedbapp.Adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,13 +17,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.themoviedbapp.Model.MoviesModel;
 import com.example.themoviedbapp.Details.MovieDetails;
-import com.example.themoviedbapp.R;
 import com.example.themoviedbapp.Details.TVDetails;
+import com.example.themoviedbapp.Model.MoviesModel;
+import com.example.themoviedbapp.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -43,7 +45,6 @@ public class ChildItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         this.moviesModelArrayList = moviesModelArrayList;
     }
 
-
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -53,23 +54,12 @@ public class ChildItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
         return new ViewHolder2(LayoutInflater.from(context).inflate(R.layout.childtv_item, parent, false));
 
-
     }
 
+    @SuppressLint("SetTextI18n")
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-//        holder.tvTitle.setText(moviesModelArrayList.get(position).getTitle());
-//        holder.tvOverview.setText(moviesModelArrayList.get(position).getOverview());
-//        holder.tvName.setText(moviesModelArrayList.get(position).getName());
-//
-//        holder.cardview.setOnClickListener(view -> {
-//            Intent intent = new Intent(context, MovieDetails.class);
-//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//            mid = moviesModelArrayList.get(position).getMovie_id();
-//            context.startActivity(intent);
-//        });
-
 
         if (moviesModelArrayList.get(position).getName() == null) {
 
@@ -77,7 +67,7 @@ public class ChildItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
             @SuppressLint("SimpleDateFormat") String date_format = parseDate(moviesModelArrayList.get(position).getRelease_date(),
                     new SimpleDateFormat("yyyy-MM-dd"),
-                    new SimpleDateFormat("MMM dd,yyyy"));
+                    new SimpleDateFormat("MMM dd, yyyy"));
             ((ViewHolder1) holder).tvDate.setText(date_format);
 
 
@@ -85,9 +75,35 @@ public class ChildItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             int vote_final = Math.round(vote);
             ((ViewHolder1) holder).ratingProgress.setProgress(vote_final);
 
-            Glide.with(context).load(moviesModelArrayList.get(position).getPoster_path()).into(((ViewHolder1) holder).cardImage);
 
-//            ((ViewHolder1) holder).cardImage.setText(moviesModelArrayList.get(position).getOverview());
+            String votePercentage = String.valueOf(vote_final);
+
+
+            if (vote_final == 0 && votePercentage.equals("0")) {
+                ((ViewHolder1) holder).ratingPercentage.setText("NR");
+                ((ViewHolder1) holder).percentSign.setVisibility(View.GONE);
+                Drawable drawable = ContextCompat.getDrawable(context, R.drawable.circle_grey);
+                ((ViewHolder1) holder).ratingProgress.setProgressDrawable(drawable);
+
+                int paddingDp = 1;
+                float density = context.getResources().getDisplayMetrics().density;
+                int paddingPixel = (int) (paddingDp * density);
+                ((ViewHolder1) holder).ratingPercentage.setPadding(paddingPixel, 0, 0, 0);
+
+            }
+            else {
+                ((ViewHolder1) holder).ratingPercentage.setText(votePercentage);
+            }
+
+
+
+//            if (vote_final < 70) {
+//                Drawable drawable = ContextCompat.getDrawable(context, R.drawable.circle_yellow);
+//                ((ViewHolder1) holder).ratingProgress.setProgressDrawable(drawable);
+//            }
+
+
+            Glide.with(context).load(moviesModelArrayList.get(position).getPoster_path()).into(((ViewHolder1) holder).cardImage);
 
             ((ViewHolder1) holder).cardview.setOnClickListener(view -> {
                 Intent intent = new Intent(context, MovieDetails.class);
@@ -103,7 +119,7 @@ public class ChildItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             ((ViewHolder2) holder).TVtvTitle.setText(moviesModelArrayList.get(position).getName());
             ((ViewHolder2) holder).TVtvOverview.setText(moviesModelArrayList.get(position).getOverview());
 
-            ((ViewHolder2) holder).TVcardview.setOnClickListener(view -> {
+            ((ViewHolder2) holder).TVCardView.setOnClickListener(view -> {
                 Intent intent = new Intent(context, TVDetails.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mid = moviesModelArrayList.get(position).getMovie_id();
@@ -117,17 +133,16 @@ public class ChildItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
     public static String parseDate(String inputDateString, SimpleDateFormat inputDateFormat, SimpleDateFormat outputDateFormat) {
-        Date date = null;
         String outputDateString = null;
         try {
-            date = inputDateFormat.parse(inputDateString);
+            Date date = inputDateFormat.parse(inputDateString);
+            assert date != null;
             outputDateString = outputDateFormat.format(date);
         } catch (ParseException e) {
             e.printStackTrace();
         }
         return outputDateString;
     }
-
 
     @Override
     public int getItemCount() {
@@ -143,11 +158,11 @@ public class ChildItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     }
 
-    private class ViewHolder1 extends RecyclerView.ViewHolder {
+    private static class ViewHolder1 extends RecyclerView.ViewHolder {
 
         EditText mainEditText;
         Button searchButton;
-        TextView tvTitle, tvDate;
+        TextView tvTitle, tvDate, ratingPercentage, percentSign;
         CardView cardview;
         ImageView cardImage;
         ProgressBar ratingProgress;
@@ -158,7 +173,8 @@ public class ChildItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
             cardImage = itemView.findViewById(R.id.cardImage);
             ratingProgress = itemView.findViewById(R.id.ratingProgress);
-
+            ratingPercentage = itemView.findViewById(R.id.ratingPercentage);
+            percentSign = itemView.findViewById(R.id.percentSign);
             tvTitle = itemView.findViewById(R.id.title);
             tvDate = itemView.findViewById(R.id.date);
             cardview = itemView.findViewById(R.id.movieOrTvCardView);
@@ -167,13 +183,12 @@ public class ChildItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
-
     private static class ViewHolder2 extends RecyclerView.ViewHolder {
 
         EditText mainEditText;
         Button searchButton;
         TextView TVtvTitle, TVtvOverview, TVtvName;
-        CardView TVcardview;
+        CardView TVCardView;
 
         public ViewHolder2(final View itemView) {
             super(itemView);
@@ -181,7 +196,7 @@ public class ChildItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             TVtvTitle = itemView.findViewById(R.id.TVtitle);
             TVtvOverview = itemView.findViewById(R.id.TVoverview);
             TVtvName = itemView.findViewById(R.id.TVname);
-            TVcardview = itemView.findViewById(R.id.TVmovieOrTvCardView);
+            TVCardView = itemView.findViewById(R.id.TVmovieOrTvCardView);
             searchButton = itemView.findViewById(R.id.searchButton);
             mainEditText = itemView.findViewById(R.id.search);
         }

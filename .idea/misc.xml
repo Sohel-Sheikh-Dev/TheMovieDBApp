@@ -6,14 +6,17 @@
         <entry key="..\:/Users/91629/Desktop/TheMovieDBApp-master/TheMovieDBApp-master/app/src/main/res/drawable/bg_rating.xml" value="0.22291666666666668" />
         <entry key="..\:/Users/91629/Desktop/TheMovieDBApp-master/TheMovieDBApp-master/app/src/main/res/drawable/bgposter.xml" value="0.22291666666666668" />
         <entry key="..\:/Users/91629/Desktop/TheMovieDBApp-master/TheMovieDBApp-master/app/src/main/res/drawable/circle.xml" value="0.22291666666666668" />
+        <entry key="..\:/Users/91629/Desktop/TheMovieDBApp-master/TheMovieDBApp-master/app/src/main/res/drawable/circle_grey.xml" value="0.18771929824561404" />
+        <entry key="..\:/Users/91629/Desktop/TheMovieDBApp-master/TheMovieDBApp-master/app/src/main/res/drawable/circle_yellow.xml" value="0.18771929824561404" />
         <entry key="..\:/Users/91629/Desktop/TheMovieDBApp-master/TheMovieDBApp-master/app/src/main/res/drawable/default_indicator.xml" value="0.1" />
         <entry key="..\:/Users/91629/Desktop/TheMovieDBApp-master/TheMovieDBApp-master/app/src/main/res/drawable/indicator_selector.xml" value="0.2194871794871795" />
         <entry key="..\:/Users/91629/Desktop/TheMovieDBApp-master/TheMovieDBApp-master/app/src/main/res/drawable/search_box.xml" value="0.22291666666666668" />
         <entry key="..\:/Users/91629/Desktop/TheMovieDBApp-master/TheMovieDBApp-master/app/src/main/res/drawable/search_button.xml" value="0.22291666666666668" />
         <entry key="..\:/Users/91629/Desktop/TheMovieDBApp-master/TheMovieDBApp-master/app/src/main/res/drawable/selector_indecatoe.xml" value="0.2194871794871795" />
         <entry key="..\:/Users/91629/Desktop/TheMovieDBApp-master/TheMovieDBApp-master/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/91629/Desktop/TheMovieDBApp-master/TheMovieDBApp-master/app/src/main/res/layout/activity_movie_details.xml" value="0.16965811965811967" />
         <entry key="..\:/Users/91629/Desktop/TheMovieDBApp-master/TheMovieDBApp-master/app/src/main/res/layout/activity_search.xml" value="0.12590579710144928" />
-        <entry key="..\:/Users/91629/Desktop/TheMovieDBApp-master/TheMovieDBApp-master/app/src/main/res/layout/child_item.xml" value="0.67" />
+        <entry key="..\:/Users/91629/Desktop/TheMovieDBApp-master/TheMovieDBApp-master/app/src/main/res/layout/child_item.xml" value="0.5" />
         <entry key="..\:/Users/91629/Desktop/TheMovieDBApp-master/TheMovieDBApp-master/app/src/main/res/layout/childtv_item.xml" value="0.12590579710144928" />
         <entry key="..\:/Users/91629/Desktop/TheMovieDBApp-master/TheMovieDBApp-master/app/src/main/res/layout/image_item.xml" value="0.20677083333333332" />
         <entry key="..\:/Users/91629/Desktop/TheMovieDBApp-master/TheMovieDBApp-master/app/src/main/res/layout/image_slider.xml" value="0.20677083333333332" />

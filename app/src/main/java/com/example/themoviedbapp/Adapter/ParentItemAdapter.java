@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.themoviedbapp.Items.ParentItem;
 import com.example.themoviedbapp.R;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class ParentItemAdapter extends RecyclerView.Adapter<ParentItemAdapter.Pa
     private final List<ParentItem> itemList;
     Context context;
 
-    public ParentItemAdapter(Context context,List<ParentItem> itemList) {
+    public ParentItemAdapter(Context context, List<ParentItem> itemList) {
         this.context = context;
         this.itemList = itemList;
     }
@@ -38,10 +39,10 @@ public class ParentItemAdapter extends RecyclerView.Adapter<ParentItemAdapter.Pa
         ParentItem parentItem = itemList.get(position);
 
         holder.parentTV.setText(parentItem.getParentItemTextView());
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(holder.childRecyclerView.getContext(),LinearLayoutManager.HORIZONTAL,false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(holder.childRecyclerView.getContext(), LinearLayoutManager.HORIZONTAL, false);
         linearLayoutManager.setInitialPrefetchItemCount(parentItem.getMoviesModelArrayList().size());
 
-        ChildItemAdapter childItemAdapter = new ChildItemAdapter(context.getApplicationContext(),parentItem.getMoviesModelArrayList());
+        ChildItemAdapter childItemAdapter = new ChildItemAdapter(context.getApplicationContext(), parentItem.getMoviesModelArrayList());
         holder.childRecyclerView.setLayoutManager(linearLayoutManager);
         holder.childRecyclerView.setAdapter(childItemAdapter);
         holder.childRecyclerView.setRecycledViewPool(viewPool);
