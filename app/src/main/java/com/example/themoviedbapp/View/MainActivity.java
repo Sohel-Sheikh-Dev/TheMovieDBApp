@@ -66,8 +66,8 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         init();
+//        getUpcomingMovies();
         getMoviesAndTVs();
-        getUpcomingMovies();
 
     }
 
@@ -95,6 +95,10 @@ public class MainActivity extends AppCompatActivity {
         ParentItem itemTrendTV = new ParentItem("Trending TV", moviesModelArrayListTrendTV);
         getTrendingTvShows();
         itemList.add(itemTrendTV);
+
+//        ParentItem itemUp = new ParentItem("Upcoming");
+//        getUpcomingMovies();
+//        itemList.add(itemUp);
 
         adapter = new ParentItemAdapter(getApplicationContext(), itemList);
         recyclerView.setAdapter(adapter);

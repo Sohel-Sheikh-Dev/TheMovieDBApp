@@ -3,6 +3,7 @@ package com.example.themoviedbapp.Adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.view.LayoutInflater;
@@ -73,34 +74,58 @@ public class ChildItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
             float vote = moviesModelArrayList.get(position).getVote_average() * 10;
             int vote_final = Math.round(vote);
-            ((ViewHolder1) holder).ratingProgress.setProgress(vote_final);
-
 
             String votePercentage = String.valueOf(vote_final);
+
+            if (vote_final > 69) {
+
+                ((ViewHolder1) holder).ratingPercentage.setText(votePercentage);
+                Drawable drawable = ContextCompat.getDrawable(context, R.drawable.circle_green);
+                ((ViewHolder1) holder).ratingProgress.setProgressDrawable(drawable);
+
+                ((ViewHolder1) holder).ratingProgress.setProgress(vote_final);
+            }
+
+            if (vote_final < 70) {
+                ((ViewHolder1) holder).ratingPercentage.setText(votePercentage);
+                Drawable drawable = ContextCompat.getDrawable(context, R.drawable.circle_yellow);
+                ((ViewHolder1) holder).ratingProgress.setProgressDrawable(drawable);
+
+                ((ViewHolder1) holder).ratingProgress.setProgress(vote_final);
+
+            }
 
 
             if (vote_final == 0 && votePercentage.equals("0")) {
                 ((ViewHolder1) holder).ratingPercentage.setText("NR");
                 ((ViewHolder1) holder).percentSign.setVisibility(View.GONE);
-                Drawable drawable = ContextCompat.getDrawable(context, R.drawable.circle_grey);
-                ((ViewHolder1) holder).ratingProgress.setProgressDrawable(drawable);
+//                Drawable drawable = ContextCompat.getDrawable(context, R.drawable.circle_grey);
+//                ((ViewHolder1) holder).ratingProgress.setProgressDrawable(drawable);
+
+                ((ViewHolder1) holder).ratingProgress.getProgressDrawable().setColorFilter(Color.GRAY, android.graphics.PorterDuff.Mode.SRC_IN);
 
                 int paddingDp = 1;
                 float density = context.getResources().getDisplayMetrics().density;
                 int paddingPixel = (int) (paddingDp * density);
                 ((ViewHolder1) holder).ratingPercentage.setPadding(paddingPixel, 0, 0, 0);
-
-            }
-            else {
-                ((ViewHolder1) holder).ratingPercentage.setText(votePercentage);
+                ((ViewHolder1) holder).ratingProgress.setProgress(0);
             }
 
-
-
-//            if (vote_final < 70) {
+/*
+            else if(vote_final <= 69 && !votePercentage.equals("0")){
 //                Drawable drawable = ContextCompat.getDrawable(context, R.drawable.circle_yellow);
 //                ((ViewHolder1) holder).ratingProgress.setProgressDrawable(drawable);
-//            }
+                ((ViewHolder1) holder).ratingProgress.getProgressDrawable().setColorFilter(Color.YELLOW,android.graphics.PorterDuff.Mode.SRC_IN);
+                ((ViewHolder1) holder).ratingProgress.setProgress(vote_final);
+            }
+            else if(vote_final > 69 && !votePercentage.equals("0")){
+//                Drawable drawable = ContextCompat.getDrawable(context, R.drawable.circle_green);
+//                ((ViewHolder1) holder).ratingProgress.setProgressDrawable(drawable);
+                ((ViewHolder1) holder).ratingProgress.getProgressDrawable().setColorFilter(Color.GREEN,android.graphics.PorterDuff.Mode.SRC_IN);
+                ((ViewHolder1) holder).ratingPercentage.setText(votePercentage);
+                ((ViewHolder1) holder).ratingProgress.setProgress(vote_final);
+            }
+*/
 
 
             Glide.with(context).load(moviesModelArrayList.get(position).getPoster_path()).into(((ViewHolder1) holder).cardImage);

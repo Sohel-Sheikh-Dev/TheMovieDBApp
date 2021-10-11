@@ -33,7 +33,7 @@
             android:background="@drawable/bg_rating"
             android:elevation="2dp"
             android:indeterminateOnly="false"
-            tools:progress="60" />
+            android:progressDrawable="@drawable/circle_green" />
 
     <TextView
         android:id="@id/ratingPercentage"
