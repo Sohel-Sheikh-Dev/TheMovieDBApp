@@ -3,8 +3,6 @@ package com.example.themoviedbapp.Adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +16,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -32,8 +29,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class ChildItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
-
+public class ChildItemSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final Context context;
     List<MoviesModel> moviesModelArrayList;
     public static int mid;
@@ -41,7 +37,7 @@ public class ChildItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     final int VIEW_TYPE_TWO = 2;
 
 
-    public ChildItemAdapter(Context context, List<MoviesModel> moviesModelArrayList) {
+    public ChildItemSearchAdapter(Context context, List<MoviesModel> moviesModelArrayList) {
         this.context = context;
         this.moviesModelArrayList = moviesModelArrayList;
     }
@@ -51,9 +47,9 @@ public class ChildItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         if (viewType == VIEW_TYPE_ONE) {
-            return new ViewHolder1(LayoutInflater.from(context).inflate(R.layout.child_item, parent, false));
+            return new ChildItemSearchAdapter.ViewHolder1(LayoutInflater.from(context).inflate(R.layout.child_search_movie_item, parent, false));
         }
-        return new ViewHolder2(LayoutInflater.from(context).inflate(R.layout.childtv_item, parent, false));
+        return new ChildItemSearchAdapter.ViewHolder2(LayoutInflater.from(context).inflate(R.layout.childtv_item, parent, false));
 
     }
 
@@ -64,55 +60,25 @@ public class ChildItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         if (moviesModelArrayList.get(position).getName() == null) {
 
-            ((ViewHolder1) holder).tvTitle.setText(moviesModelArrayList.get(position).getTitle());
+            if (moviesModelArrayList.get(position).getRelease_date() != null) {
+                @SuppressLint("SimpleDateFormat") String date_format = parseDate(moviesModelArrayList.get(position).getRelease_date(),
+                        new java.text.SimpleDateFormat("yyyy-MM-dd"),
+                        new SimpleDateFormat("MMM dd, yyyy"));
+                ((ChildItemSearchAdapter.ViewHolder1) holder).tvDate.setText(date_format);
 
-            @SuppressLint("SimpleDateFormat") String date_format = parseDate(moviesModelArrayList.get(position).getRelease_date(),
-                    new SimpleDateFormat("yyyy-MM-dd"),
-                    new SimpleDateFormat("MMM dd, yyyy"));
-            ((ViewHolder1) holder).tvDate.setText(date_format);
-
-
-            float vote = moviesModelArrayList.get(position).getVote_average() * 10;
-            int vote_final = Math.round(vote);
-
-            String votePercentage = String.valueOf(vote_final);
-
-            if (vote_final > 69) {
-
-                ((ViewHolder1) holder).ratingPercentage.setText(votePercentage);
-                Drawable drawable = ContextCompat.getDrawable(context, R.drawable.circle_green);
-                ((ViewHolder1) holder).ratingProgress.setProgressDrawable(drawable);
-
-                ((ViewHolder1) holder).ratingProgress.setProgress(vote_final);
+                ((ChildItemSearchAdapter.ViewHolder1) holder).tvTitle.setText(moviesModelArrayList.get(position).getTitle());
+                ((ChildItemSearchAdapter.ViewHolder1) holder).tvDescription.setText(moviesModelArrayList.get(position).getOverview());
             }
 
-            if (vote_final < 70) {
-                ((ViewHolder1) holder).ratingPercentage.setText(votePercentage);
-                Drawable drawable = ContextCompat.getDrawable(context, R.drawable.circle_yellow);
-                ((ViewHolder1) holder).ratingProgress.setProgressDrawable(drawable);
-
-                ((ViewHolder1) holder).ratingProgress.setProgress(vote_final);
-
+            if (moviesModelArrayList.get(position).getRelease_date() == null) {
+                ((ChildItemSearchAdapter.ViewHolder1) holder).tvDate.setText("");
+                ((ViewHolder1) holder).tvOnlyTitleWhileNull.setText(moviesModelArrayList.get(position).getTitle());
+                ((ChildItemSearchAdapter.ViewHolder1) holder).tvTitle.setText("");
+                ((ChildItemSearchAdapter.ViewHolder1) holder).tvDescription.setText("");
             }
 
-
-            if (vote_final == 0 && votePercentage.equals("0")) {
-                ((ViewHolder1) holder).ratingPercentage.setText("NR");
-                ((ViewHolder1) holder).percentSign.setVisibility(View.GONE);
-//                Drawable drawable = ContextCompat.getDrawable(context, R.drawable.circle_grey);
-//                ((ViewHolder1) holder).ratingProgress.setProgressDrawable(drawable);
-
-                ((ViewHolder1) holder).ratingProgress.getProgressDrawable().setColorFilter(Color.GRAY, android.graphics.PorterDuff.Mode.SRC_IN);
-
-                int paddingDp = 1;
-                float density = context.getResources().getDisplayMetrics().density;
-                int paddingPixel = (int) (paddingDp * density);
-                ((ViewHolder1) holder).ratingPercentage.setPadding(paddingPixel, 0, 0, 0);
-                ((ViewHolder1) holder).ratingProgress.setProgress(0);
-            }
-
-            Glide.with(context).load(moviesModelArrayList.get(position).getPoster_path()).into(((ViewHolder1) holder).cardImage);
-            ((ViewHolder1) holder).cardview.setOnClickListener(view -> {
+            Glide.with(context).load(moviesModelArrayList.get(position).getPoster_path()).into(((ChildItemSearchAdapter.ViewHolder1) holder).cardImage);
+            ((ChildItemSearchAdapter.ViewHolder1) holder).cardview.setOnClickListener(view -> {
 
                 Intent intent = new Intent(context, MovieDetails.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -120,13 +86,15 @@ public class ChildItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 context.startActivity(intent);
             });
 
+
         }
 
-        if (moviesModelArrayList.get(position).getTitle() == null) {
-            ((ViewHolder2) holder).TVtvTitle.setText(moviesModelArrayList.get(position).getName());
-            ((ViewHolder2) holder).TVtvOverview.setText(moviesModelArrayList.get(position).getOverview());
 
-            ((ViewHolder2) holder).TVCardView.setOnClickListener(view -> {
+        if ((moviesModelArrayList.get(position).getTitle() == null)) {
+            ((ChildItemSearchAdapter.ViewHolder2) holder).TVtvTitle.setText(moviesModelArrayList.get(position).getName());
+            ((ChildItemSearchAdapter.ViewHolder2) holder).TVtvOverview.setText(moviesModelArrayList.get(position).getOverview());
+
+            ((ChildItemSearchAdapter.ViewHolder2) holder).TVCardView.setOnClickListener(view -> {
                 Intent intent = new Intent(context, TVDetails.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mid = moviesModelArrayList.get(position).getMovie_id();
@@ -139,7 +107,7 @@ public class ChildItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
 
-    public static String parseDate(String inputDateString, SimpleDateFormat inputDateFormat, SimpleDateFormat outputDateFormat) {
+    public static String parseDate(String inputDateString, java.text.SimpleDateFormat inputDateFormat, java.text.SimpleDateFormat outputDateFormat) {
         String outputDateString = null;
         try {
             Date date = inputDateFormat.parse(inputDateString);
@@ -169,7 +137,7 @@ public class ChildItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         EditText mainEditText;
         Button searchButton;
-        TextView tvTitle, tvDate, ratingPercentage, percentSign;
+        TextView tvTitle, tvDate, ratingPercentage, percentSign, tvDescription, tvOnlyTitleWhileNull;
         CardView cardview;
         ImageView cardImage;
         ProgressBar ratingProgress;
@@ -183,10 +151,12 @@ public class ChildItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             ratingPercentage = itemView.findViewById(R.id.ratingPercentage);
             percentSign = itemView.findViewById(R.id.percentSign);
             tvTitle = itemView.findViewById(R.id.title);
+            tvDescription = itemView.findViewById(R.id.description);
             tvDate = itemView.findViewById(R.id.date);
-            cardview = itemView.findViewById(R.id.movieOrTvCardView);
+            cardview = itemView.findViewById(R.id.movieOrTvCardViews);
             searchButton = itemView.findViewById(R.id.searchButton);
             mainEditText = itemView.findViewById(R.id.search);
+            tvOnlyTitleWhileNull = itemView.findViewById(R.id.onlyTitleWhileNull);
         }
     }
 
@@ -211,3 +181,4 @@ public class ChildItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
 }
+

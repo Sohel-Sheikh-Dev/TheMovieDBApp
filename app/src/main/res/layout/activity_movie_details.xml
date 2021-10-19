@@ -1,61 +1,556 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_below="@+id/taglineTV">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/mediaRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+
 
     <RelativeLayout
-        android:id="@+id/releaseDatesRL"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/mediaRecyclerView">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/textViewReleaseDate"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/detailsAppBarLayout"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/detailsToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/colorPrimary"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="?attr/actionBarTheme" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <ImageView
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_centerHorizontal="true"
+            android:elevation="4dp"
+            android:padding="5dp"
+            android:src="@drawable/tmdblogo" />
+
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="40sp" />
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="50dp"
+            android:elevation="4dp"
+            android:padding="10dp"
+            android:src="@drawable/ic_round_person_24" />
 
-        <TextView
-            android:id="@+id/textViewTVReleaseDate"
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="40sp" />
+            android:layout_margin="10dp"
+            android:elevation="4dp"
+            android:padding="10dp"
+            android:src="@drawable/ic_round_view_headline_24" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
+            android:elevation="4dp"
+            android:padding="10dp"
+            android:src="@drawable/ic_round_search_24" />
+
+
+
+        <RelativeLayout
+            android:id="@+id/detailsRelativeLayout"
+            android:layout_width="match_parent"
+            android:layout_below="@id/detailsAppBarLayout"
+            android:background="#000000"
+            android:layout_height="170dp">
+
+            <ImageView
+                android:id="@+id/detailsIV"
+                android:layout_width="300dp"
+                android:scaleType="centerCrop"
+
+                android:padding="10dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ap"
+                android:layout_alignParentRight="true"/>
+
+            <!-- Add a cardView of poster
+                here... -->
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/titleAndDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/detailsRelativeLayout"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/titleTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="Deadpool"
+                android:textSize="25dp"/>
+
+            <TextView
+                android:id="@+id/dateTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:paddingLeft="5dp"
+                android:text="(Date)"
+                android:textSize="20dp"/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/scoreAndTrailer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/titleAndDate"
+            android:layout_margin="15dp">
+
+            <!-- Add a divier in this TextView -->
+
+            <TextView
+                android:id="@+id/scoreTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="User Score"
+                android:paddingStart="15dp"
+                android:textSize="18dp"/>
+
+            <!--
+
+                Add a triangle play button here
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            -->
+
+            <TextView
+                android:id="@+id/trailerTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:paddingLeft="5dp"
+                android:text="Play Trailer"
+                android:paddingEnd="25dp"
+                android:textSize="18dp"/>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/dateTimeGenre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="20dp"
+            android:gravity="center"
+            android:layout_below="@+id/scoreAndTrailer">
+
+            <TextView
+                android:id="@+id/fullDateTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DD/MM//YY"
+                android:textSize="18dp"/>
+
+            <TextView
+                android:id="@+id/dotTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/fullDateTV"
+                android:text="•"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:textSize="18dp"/>
+
+            <TextView
+                android:id="@+id/fullTimeTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/dotTV"
+                android:text="0h 00m"
+                android:textSize="18dp"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/genreTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dateTimeGenre"
+            android:text="Action, Adventure, Comedy"
+            android:gravity="center"
+            android:paddingBottom="20dp"
+            android:textSize="18dp"/>
+
+        <TextView
+            android:id="@+id/taglineTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/genreTV"
+            android:text="Tagline"
+            android:paddingLeft="20dp"
+            android:textSize="20dp"/>
+
+        <TextView
+            android:id="@+id/overviewTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Overview"
+            android:layout_below="@+id/taglineTV"
+            android:paddingTop="5dp"
+            android:paddingLeft="20dp"
+            android:textSize="25dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/overviewListTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/overviewTV"
+            android:text="overview overview overview overview overview overview overview overview overview overview overview overview overview overview overview overview overview overview overview overview overview overview overview overview overview overview overview overview overview overview overview overview overview overview overview overview overview overview overview  overview overview overview overview overview overview"
+            android:paddingTop="2dp"
+            android:paddingLeft="20dp"
+            android:paddingBottom="20dp"
+            android:paddingRight="20dp"
+            android:textSize="20dp"/>
+
+        <!--Add a recycler view of grid layout for crews -
+        https://stackoverflow.com/questions/40587168/simple-android-grid-example-using-recyclerview-with-gridlayoutmanager-like-the
+        here.....
+        -->
+
+        <TextView
+            android:id="@+id/topBilledCast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/overviewListTV"
+            android:text="Top Billed Cast"
+            android:paddingTop="2dp"
+            android:paddingLeft="20dp"
+            android:paddingBottom="20dp"
+            android:paddingRight="20dp"
+            android:textStyle="bold"
+            android:textSize="20dp"/>
+
+        <!--Add a vertical recycler view for top billed cast-
+        here.....
+        -->
+
+        <Button
+            android:id="@+id/castCrewButton"
+            android:layout_below="@+id/topBilledCast"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:padding="20dp"
+            android:background="#ffffff"
+            android:textSize="15dp"
+            android:text="Full Cast  and Crew"/>
+
+        <!-- A divider
+            here.... -->
+
+        <LinearLayout
+            android:id="@+id/socialAndDiscussions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/castCrewButton"
+            android:padding="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/socialTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Social"
+                android:textStyle="bold"
+                android:layout_marginRight="60dp"
+                android:textSize="20dp"/>
+
+            <!-- make this button transparent -->
+            <Button
+                android:id="@+id/discussionsTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Discussions"/>
+
+            <!-- make this button transparent -->
+            <Button
+                android:id="@+id/reviewsTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Reviews"/>
+
+        </LinearLayout>
+
+        <!-- A cardView
+            here....-->
+
+        <Button
+            android:id="@+id/reviewsButton"
+            android:layout_below="@+id/socialAndDiscussions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:gravity="start"
+            android:padding="20dp"
+            android:textSize="15dp"
+            android:text="Read All Reviews"/>
+
+
+
+        <LinearLayout
+            android:id="@+id/mediaLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/reviewsButton"
+            android:padding="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/mediaTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Media"
+                android:textStyle="bold"
+                android:layout_marginRight="50dp"
+                android:textSize="20dp"/>
+
+            <TextView
+                android:id="@+id/videosTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:text="Videos"
+                android:textStyle="bold"
+                android:textSize="15dp"/>
+
+            <TextView
+                android:id="@+id/postersTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:text="Posters"
+                android:textStyle="bold"
+                android:textSize="15dp"/>
+
+            <TextView
+                android:id="@+id/backdropsTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:text="Backdrops"
+                android:textStyle="bold"
+                android:textSize="15dp"/>
+
+            <!--Add a vertical recycler view for media
+            here.....
+            -->
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/recommendationsTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mediaLinearLayout"
+            android:text="Recommendations"
+            android:textStyle="bold"
+            android:padding="20dp"
+            android:layout_alignParentStart="true"
+            android:textSize="20dp"/>
+
+        <!--Add a vertical recycler view for recommendation
+        here.....
+        -->
+
+
+        <LinearLayout
+            android:id="@+id/tags"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/recommendationsTV"
+            android:padding="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/statusTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status"
+                android:textStyle="bold"
+                android:layout_alignParentStart="true"
+                android:textSize="20dp"/>
+
+            <TextView
+                android:id="@+id/statusResultTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Released"
+                android:layout_alignParentStart="true"
+                android:textSize="15dp"/>
+
+
+            <TextView
+                android:id="@+id/originalLangTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Original Language"
+                android:textStyle="bold"
+                android:paddingTop="20dp"
+                android:layout_alignParentStart="true"
+                android:textSize="20dp"/>
+
+            <TextView
+                android:id="@+id/originalLangResultTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="English"
+                android:layout_alignParentStart="true"
+                android:textSize="15dp"/>
+
+
+            <TextView
+                android:id="@+id/budgetTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Budget"
+                android:textStyle="bold"
+                android:paddingTop="20dp"
+                android:layout_alignParentStart="true"
+                android:textSize="20dp"/>
+
+            <TextView
+                android:id="@+id/budgetResultTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$XX,000,000.00"
+                android:layout_alignParentStart="true"
+                android:textSize="15dp"/>
+
+
+            <TextView
+                android:id="@+id/revenueTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Revenue"
+                android:textStyle="bold"
+                android:paddingTop="20dp"
+                android:layout_alignParentStart="true"
+                android:textSize="20dp"/>
+
+            <TextView
+                android:id="@+id/revenueResultTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$XXX,100,000.00"
+                android:layout_alignParentStart="true"
+                android:textSize="15dp"/>
+
+
+            <TextView
+                android:id="@+id/keywordsTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Keywords"
+                android:textStyle="bold"
+                android:paddingTop="40dp"
+                android:layout_alignParentStart="true"
+                android:textSize="20dp"/>
+
+        </LinearLayout>
+
+        <!--Add a recycler view of grid layout for keywords -
+        https://stackoverflow.com/questions/40587168/simple-android-grid-example-using-recyclerview-with-gridlayoutmanager-like-the
+        here.....
+        -->
+
 
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/textViewRuntime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="96dp"
-        android:text="TextView"
-        android:textSize="40sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/releaseDatesRL" />
+</ScrollView>
 
-    <TextView
-        android:id="@+id/textViewVoteAverage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
-        android:text="TextView"
-        android:textSize="40sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewRuntime" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <!--<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent">-->
+
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/mediaRecyclerView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="250dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"/>-->
+
+<!--    <RelativeLayout-->
+<!--        android:id="@+id/releaseDatesRL"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="100dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/mediaRecyclerView">-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/textViewReleaseDate"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textSize="40sp" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/textViewTVReleaseDate"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textSize="40sp" />-->
+
+<!--    </RelativeLayout>-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textViewRuntime"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="96dp"-->
+<!--        android:text="TextView"-->
+<!--        android:textSize="40sp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/releaseDatesRL" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textViewVoteAverage"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="84dp"-->
+<!--        android:text="TextView"-->
+<!--        android:textSize="40sp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.498"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textViewRuntime" />-->
+<!--</androidx.constraintlayout.widget.ConstraintLayout>-->

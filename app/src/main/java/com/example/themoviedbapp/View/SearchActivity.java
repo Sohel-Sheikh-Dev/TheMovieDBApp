@@ -10,10 +10,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import com.example.themoviedbapp.Adapter.ChildItemAdapter;
+import com.example.themoviedbapp.Adapter.ChildItemSearchAdapter;
 import com.example.themoviedbapp.Model.MoviesModel;
 import com.example.themoviedbapp.R;
 import com.example.themoviedbapp.Response.MoviesResponse;
@@ -33,7 +33,7 @@ public class SearchActivity extends AppCompatActivity {
     RecyclerView searchRecyclerView;
     ProgressBar progressBar;
     List<MoviesModel> moviesModelArrayListSearch;
-    ChildItemAdapter searchViewAdapter;
+    ChildItemSearchAdapter searchViewAdapter;
     String queryText;
 
     @Override
@@ -65,8 +65,8 @@ public class SearchActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         queryText = MainActivity.getMainEditText();
         moviesModelArrayListSearch = new ArrayList<>();
-        searchViewAdapter = new ChildItemAdapter(SearchActivity.this,moviesModelArrayListSearch);
-        StaggeredGridLayoutManager linearLayoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+        searchViewAdapter = new ChildItemSearchAdapter(SearchActivity.this,moviesModelArrayListSearch);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(SearchActivity.this);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         searchRecyclerView.setLayoutManager(linearLayoutManager);
         searchRecyclerView.setAdapter(searchViewAdapter);

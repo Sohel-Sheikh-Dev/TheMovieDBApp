@@ -15,9 +15,9 @@
             android:id="@+id/appBarLayout"
             android:layout_width="0dp"
             android:layout_height="64dp"
-            android:layout_alignParentEnd="true"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true">
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -31,38 +31,38 @@
 
         <ImageView
             android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_centerHorizontal="true"
             android:elevation="4dp"
             android:padding="5dp"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/tmdblogo"
-            android:layout_height="65dp" />
+            android:src="@drawable/tmdblogo" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:elevation="4dp"
-            android:padding="10dp"
+            android:layout_alignParentEnd="true"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="50dp"
-            android:layout_alignParentEnd="true"
+            android:elevation="4dp"
+            android:padding="10dp"
             android:src="@drawable/ic_round_person_24" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:elevation="4dp"
             android:padding="10dp"
-            android:layout_margin="10dp"
             android:src="@drawable/ic_round_view_headline_24" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:elevation="4dp"
-            android:padding="10dp"
-            android:layout_margin="10dp"
             android:layout_alignParentEnd="true"
             android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
+            android:elevation="4dp"
+            android:padding="10dp"
             android:src="@drawable/ic_round_search_24" />
 
         <TextView
@@ -71,12 +71,12 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/appBarLayout"
             android:layout_marginStart="20dp"
-            android:fontFamily="sans-serif-black"
             android:layout_marginTop="30dp"
+            android:elevation="1dp"
+            android:fontFamily="sans-serif-black"
             android:text="Welcome."
             android:textColor="@color/white"
-            android:textSize="45sp"
-            android:elevation="1dp" />
+            android:textSize="45sp" />
 
         <TextView
             android:id="@+id/WelcomeText"
@@ -84,11 +84,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/welcome"
             android:layout_marginStart="20dp"
+            android:elevation="1dp"
             android:fontFamily="sans-serif-medium"
             android:text="Millions of Movies, Tv \nshows and people to \ndiscover. Explore now."
             android:textColor="@color/white"
-            android:textSize="30sp"
-            android:elevation="1dp" />
+            android:textSize="30sp" />
 
 
         <EditText
@@ -101,6 +101,8 @@
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/search_box"
+            android:imeOptions="actionGo"
+            android:inputType="text"
             android:elevation="1dp"
             android:fontFamily="sans-serif"
             android:hint="Search...."
@@ -112,10 +114,10 @@
             android:id="@+id/searchButtonMain"
             android:layout_width="95dp"
             android:layout_height="46dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="20dp"
             android:layout_below="@id/WelcomeText"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
             android:background="@drawable/bgposter"
             android:fontFamily="sans-serif-medium"
             android:text="Search"
@@ -147,30 +149,31 @@
             app:sliderStartAutoCycle="true" />
 
 
-
     </RelativeLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/welcomeView" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/recyclerView"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/trending" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/welcomeView" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/recyclerView"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/trending" />
+
 
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="50dp"
         android:layout_below="@id/welcomeView"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" />
+        android:layout_centerVertical="true"
+        android:layout_margin="50dp" />
 
 </RelativeLayout>

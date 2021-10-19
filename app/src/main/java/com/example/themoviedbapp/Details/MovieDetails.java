@@ -41,8 +41,8 @@ public class MovieDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
 
-        init();
-        getMovieDetails();
+//        init();
+//        getMovieDetails();
 
     }
 
@@ -66,7 +66,7 @@ public class MovieDetails extends AppCompatActivity {
         mediaAdapter = new ParentItemMediaAdapter(getApplicationContext(), itemList);
         mediaRecyclerView.setAdapter(mediaAdapter);
     }
-
+/*
     public void init() {
         textviewReleaseDate = findViewById(R.id.textViewReleaseDate);
         tvReleaseRuntime = findViewById(R.id.textViewRuntime);
@@ -79,7 +79,7 @@ public class MovieDetails extends AppCompatActivity {
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         mediaRecyclerView.setLayoutManager(linearLayoutManager);
     }
-
+*/
     private void getMovieTrailer(int id) {
 
         Call<TrailerResponse> data = RetrofitInstance.getRetrofitInstance().getMoviesTrailer(id);

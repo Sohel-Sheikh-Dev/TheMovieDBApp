@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -47,6 +48,7 @@ public class ParentItemAdapter extends RecyclerView.Adapter<ParentItemAdapter.Pa
         holder.childRecyclerView.setAdapter(childItemAdapter);
         holder.childRecyclerView.setRecycledViewPool(viewPool);
 
+
     }
 
     @Override
@@ -58,13 +60,14 @@ public class ParentItemAdapter extends RecyclerView.Adapter<ParentItemAdapter.Pa
 
         private final TextView parentTV;
         private final RecyclerView childRecyclerView;
+        private final Spinner dropDownMenu;
 
         ParentViewHolder(@NonNull View itemView) {
             super(itemView);
 
             parentTV = itemView.findViewById(R.id.parentTextView);
             childRecyclerView = itemView.findViewById(R.id.childRecyclerView);
-
+            dropDownMenu = itemView.findViewById(R.id.dropdown_menu);
         }
     }
 }

@@ -11,7 +11,7 @@ public class ParentItem {
     public List<MoviesModel> moviesModelArrayList;
 
     public ParentItem(String parentItemTextView, List<MoviesModel> moviesModelArrayList) {
-        ParentItemTextView = parentItemTextView;
+        this.ParentItemTextView = parentItemTextView;
         this.moviesModelArrayList = moviesModelArrayList;
     }
 

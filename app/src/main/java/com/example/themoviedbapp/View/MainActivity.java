@@ -4,10 +4,13 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,9 +20,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.themoviedbapp.Adapter.LatestTrailerAdapter;
-import com.example.themoviedbapp.Items.ParentItem;
 import com.example.themoviedbapp.Adapter.ParentItemAdapter;
 import com.example.themoviedbapp.Adapter.SliderAdapter;
+import com.example.themoviedbapp.Items.ParentItem;
 import com.example.themoviedbapp.Model.MoviesModel;
 import com.example.themoviedbapp.R;
 import com.example.themoviedbapp.Response.MoviesResponse;
@@ -46,18 +49,17 @@ public class MainActivity extends AppCompatActivity {
     LatestTrailerAdapter latestTrailerAdapter;
     RecyclerView trailerRecyclerView;
     LinearLayoutManager trailerLinearLayoutManager;
-
     @SuppressLint("StaticFieldLeak")
     static EditText mainEditText;
     Button searchButton;
+//    private Spinner dropdownMenu;
 
     private String a1, a2, a3, a4;
-
-
     private String[] imagesText;
     private SliderAdapter sliderAdapter;
     private SliderView sliderView;
     Toolbar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,9 +68,25 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         init();
-//        getUpcomingMovies();
+        getUpcomingMovies();
         getMoviesAndTVs();
+    }
 
+    public void searchMainText() {
+        mainEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_GO) {
+//                    searchButton.setOnClickListener(view -> {
+                    Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                    intent.putExtra("query", mainEditText.toString());
+                    startActivity(intent);
+                    Toast.makeText(MainActivity.this, "Searching...", Toast.LENGTH_SHORT).show();
+//                    });
+                }
+                return false;
+            }
+        });
     }
 
     public static String getMainEditText() {
@@ -79,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
     private void getMoviesAndTVs() {
 
         itemList = new ArrayList<>();
-
         ParentItem itemPop = new ParentItem("What's Popular", moviesModelArrayListPop);
         getPopMovies();
         itemList.add(itemPop);

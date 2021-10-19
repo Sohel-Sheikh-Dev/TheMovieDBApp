@@ -26,21 +26,21 @@ public class TVDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
 
-        init();
+     //   init();
 
         int i = ChildItemAdapter.mid;
         Toast.makeText(getApplicationContext(), "" + i, Toast.LENGTH_SHORT).show();
         getTVDetails(i);
 
     }
-
+/*
     public void init(){
         textviewReleaseDate = findViewById(R.id.textViewReleaseDate);
         textviewTVReleaseDate = findViewById(R.id.textViewTVReleaseDate);
         tvReleaseRuntime = findViewById(R.id.textViewRuntime);
         tvReleaseVoteAverage = findViewById(R.id.textViewVoteAverage);
     }
-
+*/
     public void getTVDetails(int id) {
 
         Call<MoviesModel> data = RetrofitInstance.getRetrofitInstance().getTVDetails(id);
